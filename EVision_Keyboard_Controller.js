@@ -216,10 +216,10 @@ function sendColors(overrideColor) {
 		RGBData[vLeds[i] * 3 + 2] = color[2];
 	}
 
-	// Skip unchanged frames (but resend at least every 2s so the keyboard stays in software mode)
+	// Skip unchanged frames (but resend at least every 300 ms: the firmware falls back to its own effect after ~1 s without data)
 	const key = RGBData.join(",");
 	const now = Date.now();
-	if (!overrideColor && key === lastFrameKey && now - lastForceTime < 2000) { return; }
+	if (!overrideColor && key === lastFrameKey && now - lastForceTime < 300) { return; }
 	lastFrameKey = key;
 	lastForceTime = now;
 
